@@ -3,9 +3,6 @@ package com.example.evan.movieapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 /**
@@ -151,9 +147,6 @@ public class ListViewAdapter extends ArrayAdapter<Movie> {
                 TextView descBox = new TextView(activity);
                 layout.addView(descBox);
 
-                TextView thumbBox = new TextView(activity);
-                layout.addView(thumbBox);
-
                 TextView videoBox = new TextView(activity);
                 layout.addView(videoBox);
 
@@ -162,10 +155,12 @@ public class ListViewAdapter extends ArrayAdapter<Movie> {
 
                 Movie movie = getItem(position);
 
-                new ImageLoadTask(movie.getThumbnail(), poster).execute();
+                String imgURL = movie.getThumbnail();
+
+                Picasso.with(activity).load(imgURL).into(poster);
+
                 titleBox.setText("Movie Title: " + movie.getTitle());
                 descBox.setText("Description: " + movie.getDescription());
-                thumbBox.setText("Movie Poster URL: " + movie.getThumbnail());
                 videoBox.setText("Video URL: " + movie.getVideo());
                 ratingBox.setText("Rating: " + movie.getRating() + "/5");
 
@@ -189,39 +184,6 @@ public class ListViewAdapter extends ArrayAdapter<Movie> {
             title = (TextView)v.findViewById(R.id.item_title);
             btnDelete = v.findViewById(R.id.delete);
             btnEdit = v.findViewById(R.id.edit);
-        }
-    }
-
-    private class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
-        private String url;
-        private ImageView imageView;
-
-        public ImageLoadTask(String url, ImageView imageView) {
-            this.url = url;
-            this.imageView = imageView;
-        }
-
-        @Override
-        protected Bitmap doInBackground(Void... params) {
-            try {
-                URL urlConnection = new URL(url);
-                HttpURLConnection connection = (HttpURLConnection) urlConnection
-                        .openConnection();
-                connection.setDoInput(true);
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(input);
-                return myBitmap;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            super.onPostExecute(result);
-            imageView.setImageBitmap(result);
         }
     }
 
