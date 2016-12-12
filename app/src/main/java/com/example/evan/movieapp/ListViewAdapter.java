@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.squareup.picasso.Picasso;
 
@@ -104,14 +107,42 @@ public class ListViewAdapter extends ArrayAdapter<Movie> {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Movie movie = new Movie(
-                                titleBox.getText().toString(),
-                                descBox.getText().toString(),
-                                thumbBox.getText().toString(),
-                                videoBox.getText().toString(),
-                                Integer.parseInt(ratingBox.getText().toString())
-                                                );
+                        String title;
+                        String description;
+                        String thumbnail;
+                        String video;
+                        int rating;
+
+                        if(titleBox.getText().toString().isEmpty()){
+                            title = "";
+                        }else{
+                            title = titleBox.getText().toString();
+                        }
+                        if(descBox.getText().toString().isEmpty()){
+                            description = "";
+                        }else{
+                            description = descBox.getText().toString();
+                        }
+                        if(thumbBox.getText().toString().isEmpty()){
+                            thumbnail = "";
+                        }else{
+                            thumbnail = thumbBox.getText().toString();
+                        }
+                        if(videoBox.getText().toString().isEmpty()){
+                            video = "";
+                        }else{
+                            video = videoBox.getText().toString();
+                        }
+                        if(ratingBox.getText().toString().isEmpty()){
+                            rating = 0;
+                        }else{
+                            rating = Integer.parseInt(ratingBox.getText().toString());
+                        }
+
+                        Movie movie = new Movie(title, description, thumbnail, video, rating);
+
                         movie.setId(getItem(position).getId());
+
                         databaseHelper.updateMovie(movie); //update to db
                         Toast.makeText(activity, "Updated!", Toast.LENGTH_SHORT).show();
 
@@ -147,13 +178,13 @@ public class ListViewAdapter extends ArrayAdapter<Movie> {
                 TextView descBox = new TextView(activity);
                 layout.addView(descBox);
 
-                TextView videoBox = new TextView(activity);
-                layout.addView(videoBox);
-
                 TextView ratingBox = new TextView(activity);
                 layout.addView(ratingBox);
 
-                Movie movie = getItem(position);
+                Button videoButton = new Button(activity);
+                layout.addView(videoButton);
+
+                final Movie movie = getItem(position);
 
                 String imgURL = movie.getThumbnail();
 
@@ -161,8 +192,44 @@ public class ListViewAdapter extends ArrayAdapter<Movie> {
 
                 titleBox.setText("Movie Title: " + movie.getTitle());
                 descBox.setText("Description: " + movie.getDescription());
-                videoBox.setText("Video URL: " + movie.getVideo());
                 ratingBox.setText("Rating: " + movie.getRating() + "/5");
+                videoButton.setText("Play Trailer");
+                videoButton.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View v) {
+
+//                        String url = "http://videos.hd-trailers.net/guardians-of-the-galaxy-trailer-2-480p-HDTN.mp4";
+//                        Intent intent = new Intent(activity, VideoViewActivity.class);
+//                        intent.putExtra("VIDEO_URL", url);
+//                        getContext().startActivity(intent);
+
+                        //THIS WORKS KIND OF
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
+                        alertDialog.setTitle("Movie ");
+
+                        LinearLayout videoLayout = new LinearLayout(activity);
+                        videoLayout.setOrientation(LinearLayout.VERTICAL);
+
+                        VideoView videoView = new VideoView(activity);
+                        videoLayout.addView(videoView);
+
+                        videoView.setVideoPath(movie.getVideo());
+
+                        MediaController mediaController = new MediaController(activity);
+                        mediaController.setAnchorView(videoView);
+                        videoView.setMediaController(mediaController);
+
+                        videoView.start();
+
+                        alertDialog.setView(videoLayout);
+                        alertDialog.setNegativeButton("OK", null);
+
+                        //show alert
+                        alertDialog.show();
+
+                    }
+                });
 
                 alertDialog.setView(layout);
                 alertDialog.setNegativeButton("OK", null);

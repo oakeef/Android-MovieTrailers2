@@ -95,12 +95,39 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Movie movie = new Movie(titleBox.getText().toString(),
-                        descBox.getText().toString(),
-                        thumbBox.getText().toString(),
-                        videoBox.getText().toString(),
-                        Integer.parseInt(ratingBox.getText().toString())
-                );
+                String title;
+                String description;
+                String thumbnail;
+                String video;
+                int rating;
+
+                if(titleBox.getText().toString().isEmpty()){
+                    title = "";
+                }else{
+                    title = titleBox.getText().toString();
+                }
+                if(descBox.getText().toString().isEmpty()){
+                    description = "";
+                }else{
+                    description = descBox.getText().toString();
+                }
+                if(thumbBox.getText().toString().isEmpty()){
+                    thumbnail = "";
+                }else{
+                    thumbnail = thumbBox.getText().toString();
+                }
+                if(videoBox.getText().toString().isEmpty()){
+                    video = "";
+                }else{
+                    video = videoBox.getText().toString();
+                }
+                if(ratingBox.getText().toString().isEmpty()){
+                    rating = 0;
+                }else{
+                    rating = Integer.parseInt(ratingBox.getText().toString());
+                }
+
+                Movie movie = new Movie(title, description, thumbnail, video, rating);
                 databaseHelper.addNewMovie(movie);
 
                 reloadingDatabase(); //reload the db to view
