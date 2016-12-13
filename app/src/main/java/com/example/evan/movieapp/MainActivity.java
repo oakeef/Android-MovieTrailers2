@@ -63,35 +63,35 @@ public class MainActivity extends AppCompatActivity {
 
     private void addingNewMovieDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-        alertDialog.setTitle("Add a new Movie");
+        alertDialog.setTitle(R.string.add);
 
         LinearLayout layout = new LinearLayout(this);
         layout.setPadding(10, 10, 10, 10);
         layout.setOrientation(LinearLayout.VERTICAL);
 
         final EditText titleBox = new EditText(this);
-        titleBox.setHint("Movie Title");
+        titleBox.setHint(R.string.movie_title);
         layout.addView(titleBox);
 
         final EditText descBox = new EditText(this);
-        descBox.setHint("Description");
+        descBox.setHint(R.string.movie_desc);
         layout.addView(descBox);
 
         final EditText thumbBox = new EditText(this);
-        thumbBox.setHint("Thumbnail URL");
+        thumbBox.setHint(R.string.movie_thumb);
         layout.addView(thumbBox);
 
         final EditText videoBox = new EditText(this);
-        videoBox.setHint("Youtube URL");
+        videoBox.setHint(R.string.movie_thumb);
         layout.addView(videoBox);
 
         final EditText ratingBox = new EditText(this);
-        ratingBox.setHint("Rate Video out of 5");
+        ratingBox.setHint(R.string.movie_video);
         layout.addView(ratingBox);
 
         alertDialog.setView(layout);
 
-        alertDialog.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+        alertDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        alertDialog.setNegativeButton("Cancel", null);
+        alertDialog.setNegativeButton(R.string.save, null);
 
         //show alert
         alertDialog.show();

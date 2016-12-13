@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">Movie app</string>
+    <string name="app_name">Movie Trailers</string>
+    <string name="update">Update a Movie</string>
+    <string name="add">Add a Movie</string>
+
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="movie_title">Movie Title</string>
+    <string name="movie_desc">Description</string>
+    <string name="movie_thumb">Thumnail URL</string>
+    <string name="movie_video">Video URL</string>
+    <string name="movie_rate">Rate Video out of 5</string>
 </resources>

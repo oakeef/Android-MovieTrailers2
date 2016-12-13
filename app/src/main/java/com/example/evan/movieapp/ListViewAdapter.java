@@ -69,30 +69,30 @@ public class ListViewAdapter extends ArrayAdapter<Movie> {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-                alertDialog.setTitle("Update a Movie");
+                alertDialog.setTitle(R.string.update);
 
                 LinearLayout layout = new LinearLayout(activity);
                 layout.setPadding(10, 10, 10, 10);
                 layout.setOrientation(LinearLayout.VERTICAL);
 
                 final EditText titleBox = new EditText(activity);
-                titleBox.setHint("Movie Title");
+                titleBox.setHint(R.string.movie_title);
                 layout.addView(titleBox);
 
                 final EditText descBox = new EditText(activity);
-                descBox.setHint("Description");
+                descBox.setHint(R.string.movie_desc);
                 layout.addView(descBox);
 
                 final EditText thumbBox = new EditText(activity);
-                thumbBox.setHint("Thumbnail URL");
+                thumbBox.setHint(R.string.movie_thumb);
                 layout.addView(thumbBox);
 
                 final EditText videoBox = new EditText(activity);
-                videoBox.setHint("Youtube URL");
+                videoBox.setHint(R.string.movie_video);
                 layout.addView(videoBox);
 
                 final EditText ratingBox = new EditText(activity);
-                ratingBox.setHint("Rate Video out of 5");
+                ratingBox.setHint(R.string.movie_rate);
                 layout.addView(ratingBox);
 
                 titleBox.setText(getItem(position).getTitle());
@@ -103,7 +103,7 @@ public class ListViewAdapter extends ArrayAdapter<Movie> {
 
                 alertDialog.setView(layout);
 
-                alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                alertDialog.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

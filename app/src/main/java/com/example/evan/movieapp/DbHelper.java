@@ -18,7 +18,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "movieDB";
 
-    // Friend table name
+    // Movie table name
     private static final String TABLE_MOVIE = "movie";
 
     private static final String KEY_ID = "id";
@@ -106,7 +106,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 movie.setVideo(cursor.getString(4));
                 movie.setRating(Integer.parseInt(cursor.getString(5)));
 
-                // Adding friend to list
+                // Adding Movie to list
                 movieList.add(movie);
             } while (cursor.moveToNext());
         }
