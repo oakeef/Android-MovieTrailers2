@@ -80,6 +80,7 @@ public class DbHelper extends SQLiteOpenHelper {
         values.put(KEY_DESCRIPTION, movie.getDescription());
         values.put(KEY_THUMBNAIL, movie.getThumbnail());
         values.put(KEY_VIDEO, movie.getVideo());
+        values.put(KEY_RATING, movie.getRating());
 
         // updating row
         return db.update(TABLE_MOVIE, values, KEY_ID + " = ?", new String[]{String.valueOf(movie.getId())});

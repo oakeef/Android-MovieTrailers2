@@ -151,7 +151,7 @@ public class ListViewAdapter extends ArrayAdapter<Movie> {
                     }
                 });
 
-                alertDialog.setNegativeButton("Cancel", null);
+                alertDialog.setNegativeButton(R.string.cancel, null);
 
                 //show alert dialog
                 alertDialog.show();
@@ -163,7 +163,7 @@ public class ListViewAdapter extends ArrayAdapter<Movie> {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(activity);
-                alertDialog.setTitle("Movie ");
+                alertDialog.setTitle(R.string.movie);
 
                 LinearLayout layout = new LinearLayout(activity);
                 layout.setPadding(10, 10, 10, 10);
